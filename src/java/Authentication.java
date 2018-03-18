@@ -49,32 +49,8 @@ public class Authentication extends HttpServlet {
             String userPassword=(String)request.getAttribute("UPassword");
             String token = null;
             String region = null;
-             try{
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull", "root", "");
-                con.setAutoCommit(false);
-                Statement st = con.createStatement(); 
-                
-                String username=request.getParameter("userName");
-                out.println(username);
-                String userpassword=request.getParameter("userPassword");
-                
-                ResultSet rs = st.executeQuery("SELECT  * FROM info WHERE name ='"+username+"'");
-                String site="http://localhost:8080/ConvertionTool/Login";
-                
-                if(rs.next()){
-                    if(userpassword.equals(rs.getString(2)))
-                    {
-                        site=site+"?token=true";
-                       site+="&region="+rs.getString("region");
-                    } 
-                    site=site+"?token=false";
-                }
-                else{
-                    site=site+"?token=false";
-                }
-                System.out.println("site=="+site);
-                response.sendRedirect(site);
+           
+               
 //                while(rs.next()) {
 //                    String s=rs.getString(2);
 //                    if(s.equals(userPassword)){
@@ -97,14 +73,11 @@ public class Authentication extends HttpServlet {
 //                        RequestDispatcher rd = request.getRequestDispatcher("/Login");  
 //                        rd.forward(request, response);
 //                con.close();
-            } catch (ClassNotFoundException ex) {
-                out.println("<h1>ClassNotFoundException</h1>");
-            } catch (SQLException ex) {
+            
                 out.println("<h1>SQLException</h1>");
             }
-            out.println("</body>");
-            out.println("</html>");
-        }
+            
+     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
